@@ -9,14 +9,24 @@ import { nanoid } from 'nanoid';
 
 export class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
+
+  componentDidMount() {
+    const parseData = JSON.parse(localStorage.getItem('contacts'));
+    console.log(parseData);
+    if (parseData) {
+      this.setState({ contacts: parseData });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   onBtnDeleteClick = id => {
     this.setState(prevState => {
       const contacts = prevState.contacts.filter(contact => contact.id !== id);
@@ -46,7 +56,7 @@ export class App extends Component {
     Notify.success(`${obj.name} add to the contacts`);
 
     this.setState(prevState => ({
-      contacts: [...prevState.contacts, { ...obj, id: nanoid() }],
+      contacts: [...prevState.contacts, { id: nanoid(), ...obj }],
     }));
   };
 

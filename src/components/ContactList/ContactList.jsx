@@ -28,7 +28,6 @@ export const ContactList = ({ contactList, onBtnClick }) => {
 };
 
 ContactList.propTypes = {
-  filterName: PropTypes.string.isRequired,
   onBtnClick: PropTypes.func.isRequired,
   contactList: PropTypes.arrayOf(
     PropTypes.shape({
