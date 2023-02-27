@@ -5,6 +5,7 @@ import { SectionBox, Title, TitleBox, IconPhone } from './Section.styled';
 export class Section extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
+    children: PropTypes.node,
   };
 
   render() {
@@ -13,10 +14,8 @@ export class Section extends Component {
       <SectionBox>
         <TitleBox>
           {title.toLowerCase() === 'phonebook' && <IconPhone size={30} />}
-
           <Title>{title}</Title>
         </TitleBox>
-
         {children}
       </SectionBox>
     );
